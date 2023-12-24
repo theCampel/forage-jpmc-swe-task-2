@@ -23,7 +23,7 @@ class App extends Component<{}, IState> {
       // data saves the server responds.
       // We use this state to parse data down to the child element (Graph) as element property
       data: [],
-      showGraph: false,
+      showGraph: false, // State variable allows controlling visibility of graph
     };
   }
 
@@ -40,9 +40,7 @@ class App extends Component<{}, IState> {
    * Get new data from server and update the state with the new data
    */
   getDataFromServer() {
-    DataStreamer.getData((serverResponds: ServerRespond[]) => {
-      // Update the state by creating a new array of data that consists of
-      // Previous data in the state and the new data from server
+      // Modified to continuously fetch data from server and updates state
       let x = 0;
       const interval = setInterval(() => {
         DataStreamer.getData((serverResponds: ServerRespond[]) => {
@@ -56,7 +54,6 @@ class App extends Component<{}, IState> {
           clearInterval(interval);
         }
       }, 100);
-    });
   }
 
   /**
